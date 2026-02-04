@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/lvjp/womblock/pkg/buildinfo"
+
 	"github.com/spf13/cobra"
 )
 
@@ -12,6 +14,7 @@ var rootCmd = &cobra.Command{
 	Short:         "Leveraging blockchain to help wombats.",
 	SilenceErrors: true,
 	SilenceUsage:  true,
+	Version:       buildinfo.Get().String(),
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Fprintln(cmd.OutOrStdout(), "Hello, Womblock!")
 	},
