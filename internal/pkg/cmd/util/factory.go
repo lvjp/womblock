@@ -5,15 +5,17 @@ import (
 )
 
 type Factory struct {
-	verbose *bool
+	configPath *string
+	verbose    *bool
 }
 
-func NewFactory(verbose *bool) *Factory {
+func NewFactory(configPath *string, verbose *bool) *Factory {
 	return &Factory{
-		verbose: verbose,
+		configPath: configPath,
+		verbose:    verbose,
 	}
 }
 
 func (f *Factory) NewContext(cmd *cobra.Command) *Context {
-	return NewContext(cmd, *f.verbose)
+	return NewContext(cmd, *f.configPath, *f.verbose)
 }

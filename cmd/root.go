@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/lvjp/womblock/internal/app/config"
 	"github.com/lvjp/womblock/internal/pkg/cmd/util"
 	"github.com/lvjp/womblock/pkg/buildinfo"
 
@@ -26,9 +27,10 @@ var rootCmd = &cobra.Command{
 
 func init() {
 	flags := rootCmd.PersistentFlags()
+	config := flags.String("config", config.DefaultConfigPath, "Path to the configuration file")
 	verbose := flags.Bool("verbose", false, "Enable verbose logging (debug level)")
 
-	factory = util.NewFactory(verbose)
+	factory = util.NewFactory(config, verbose)
 }
 
 func Execute() {
