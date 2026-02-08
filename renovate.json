@@ -24,13 +24,14 @@
     },
     {
       "customType": "regex",
-      "description": "cargo install from GitHub Actions workflow",
-      "datasourceTemplate": "crate",
+      "description": "mdBook version from GitHub Actions workflow",
+      "datasourceTemplate": "github-releases",
+      "depNameTemplate": "rust-lang/mdbook",
       "managerFilePatterns": [
         "/^\\.github/workflows/gh-pages\\.yml$/"
       ],
       "matchStrings": [
-        "cargo binstall (?<depName>.+)@(?<currentValue>.+) # renovate dependency"
+        "MDBOOK_VERSION: (?<currentValue>.+) # renovate dependency"
       ]
     }
   ],
