@@ -1,6 +1,6 @@
 module github.com/lvjp/womblock
 
-go 1.25.7
+go 1.26.0
 
 require (
 	github.com/go-playground/validator/v10 v10.30.1
