@@ -6,3 +6,4 @@ language = "en"
 [output.html]
 git-repository-url = "https://github.com/lvjp/womblock"
 edit-url-template = "https://github.com/lvjp/womblock/edit/main/docs/{path}"
+site-url = "/womblock/"
