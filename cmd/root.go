@@ -11,18 +11,12 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var factory *util.Factory
-
 var rootCmd = &cobra.Command{
 	Use:           "womblock",
 	Short:         "Leveraging blockchain to help wombats.",
 	SilenceErrors: true,
 	SilenceUsage:  true,
 	Version:       buildinfo.Get().String(),
-	Run: func(cmd *cobra.Command, _ []string) {
-		ctx := factory.NewContext(cmd)
-		ctx.Logger.Info().Msg("Hello, Womblock!")
-	},
 }
 
 func init() {
@@ -30,7 +24,8 @@ func init() {
 	config := flags.String("config", config.DefaultConfigPath, "Path to the configuration file")
 	verbose := flags.Bool("verbose", false, "Enable verbose logging (debug level)")
 
-	factory = util.NewFactory(config, verbose)
+	factory := util.NewFactory(config, verbose)
+	rootCmd.AddCommand(NewServerCmd(factory))
 }
 
 func Execute() {

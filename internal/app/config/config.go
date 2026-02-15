@@ -16,7 +16,12 @@ const DefaultConfigPath = "/etc/womblock/config.yaml"
 // ANCHOR_END: default_config_path
 
 type Config struct {
-	Log Log `yaml:"log"`
+	Server Server `yaml:"server"`
+	Log    Log    `yaml:"log"`
+}
+
+type Server struct {
+	ListenAddress *string `yaml:"listen_address" validate:"omitempty,hostname_port"`
 }
 
 type Log struct {
@@ -56,6 +61,10 @@ func LoadFromFile(path string) (*Config, error) {
 }
 
 func (cfg *Config) SetDefaults() {
+	if cfg.Server.ListenAddress == nil {
+		defaultAddr := ":8080"
+		cfg.Server.ListenAddress = &defaultAddr
+	}
 	if cfg.Log.Level == "" {
 		cfg.Log.Level = "info"
 	}
