@@ -9,5 +9,7 @@ services:
     restart: unless-stopped
     ports:
       - 8081:8080
+    healthcheck:
+      test: ["CMD", "womblock", "healthcheck"]
     volumes:
       - ./config.yaml:/etc/womblock/config.yaml:ro
