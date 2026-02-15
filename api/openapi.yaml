@@ -2,6 +2,8 @@ openapi: 3.0.0
 info:
   title: womblock
   version: 0.1.0
+servers:
+  - url: "http://localhost:8081"
 # No authentication scheme declared
 security: []
 paths:
