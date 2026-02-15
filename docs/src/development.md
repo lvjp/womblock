@@ -18,6 +18,31 @@ womblock $> ./womblock --version
 womblock version 6bc1d5bf79864b36685990f39f04b5b57c98aa16 2026-02-15T14:37:28Z go1.26.0 darwin/arm64
 ```
 
+### Docker build
+
+A docker file located at `build/Dockerfile` permit to build. You will need to have one of those
+installed:
+
+- [Docker Engine](https://docs.docker.com/engine/)
+- [Docker Desktop](https://docs.docker.com/desktop/)
+- [OrbStack](https://orbstack.dev/) (macOS only)
+
+The Dockerfile is located at `build/Dockerfile`.
+
+Docker build command:
+
+```shell
+womblock $> docker build --file build/Dockerfile --tag womblock:local .
+```
+
+On success, the image `womblock:local` is created.
+
+```shell
+womblock $> docker image ls womblock:local
+REPOSITORY   TAG       IMAGE ID       CREATED          SIZE
+womblock     local     a541f56b4a99   41 seconds ago   22MB
+```
+
 ## Documenting
 
 Documentation is under the `/docs` folder and written with [mdBook](https://rust-lang.github.io/mdBook/).
