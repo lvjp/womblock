@@ -12,6 +12,7 @@ import (
 
 	fiberzerolog "github.com/gofiber/contrib/v3/zerolog"
 	"github.com/gofiber/fiber/v3"
+	"github.com/gofiber/fiber/v3/middleware/cors"
 	"github.com/gofiber/fiber/v3/middleware/requestid"
 	"github.com/rs/zerolog"
 )
@@ -88,6 +89,13 @@ func newFiberApp(logger *zerolog.Logger) *fiber.App {
 		GetLogger: func(c fiber.Ctx) zerolog.Logger {
 			return *zerolog.Ctx(c.Context())
 		},
+	}))
+
+	app.Use(cors.New(cors.Config{
+		AllowOrigins:        []string{"*"},
+		AllowMethods:        []string{fiber.MethodGet},
+		ExposeHeaders:       []string{"X-Request-ID"},
+		AllowPrivateNetwork: true,
 	}))
 
 	return app
