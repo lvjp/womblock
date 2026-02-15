@@ -43,6 +43,20 @@ REPOSITORY   TAG       IMAGE ID       CREATED          SIZE
 womblock     local     a541f56b4a99   41 seconds ago   22MB
 ```
 
+## Deployment
+
+All supported deployment stacks related files are located into the `/deployment` folder.
+
+### Local deployement
+
+Local deployment is based on [docker-compose](https://docs.docker.com/compose/).
+
+Exposed ports :
+
+| Port | Service |
+|------|---------|
+| 8081 | backend |
+
 ## Documenting
 
 Documentation is under the `/docs` folder and written with [mdBook](https://rust-lang.github.io/mdBook/).
