@@ -1,0 +1,25 @@
+openapi: 3.0.0
+info:
+  title: womblock
+  version: 0.1.0
+# No authentication scheme declared
+security: []
+paths:
+  /:
+    get:
+      summary: Womblock API root endpoint
+      # No security required for this endpoint as it is a public call
+      security: []
+      responses:
+        "200":
+          description: Build version returned
+          headers:
+            x-request-id:
+              description: Unique identifier for the request
+              schema:
+                type: string
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: "Hello, Wombat!"
