@@ -4,6 +4,8 @@ info:
   version: 0.1.0
 servers:
   - url: "http://localhost:8081"
+tags:
+  - name: Miscellaneous
 # No authentication scheme declared
 security: []
 paths:
@@ -17,11 +19,58 @@ paths:
           description: Build version returned
           headers:
             x-request-id:
-              description: Unique identifier for the request
-              schema:
-                type: string
+              $ref: "#/components/headers/x-request-id"
           content:
             text/plain:
               schema:
                 type: string
                 example: "Hello, Wombat!"
+  /api/v0/misc/version:
+    get:
+      tags:
+        - Miscellaneous
+      summary: Return the version
+      operationId: MiscVersion
+      # No security required for this endpoint as it is a public call
+      security: []
+      responses:
+        "200":
+          description: Build version returned
+          headers:
+            x-request-id:
+              $ref: "#/components/headers/x-request-id"
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - go
+                  - platform
+                  - modified
+                properties:
+                  go:
+                    type: string
+                    example: go1.20.3
+                    description: Version of the Go toolchain that built the binary
+                  platform:
+                    type: string
+                    example: linux/amd64
+                  modified:
+                    type: boolean
+                    description: True or false indicating whether the source tree had local modifications
+                  revision:
+                    type: string
+                    example: d4e5f6a
+                    description: The revision identifier for the current commit or checkout.
+                  time:
+                    type: string
+                    format: date-time
+                    example: "2024-10-06T09:25:27Z"
+                    description: The modification time associated with revision, in RFC3339 format
+components:
+  headers:
+    x-request-id:
+      description: Unique identifier for the request
+      schema:
+        type: string
+      example: VN66ii7UA5iorydU31NdxsrGjtesi4cewRTiGTsH3Tw

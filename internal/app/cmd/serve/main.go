@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"net/url"
 
+	"github.com/lvjp/womblock/internal/app/api/misc"
 	"github.com/lvjp/womblock/internal/pkg/cmd/util"
 
 	fiberzerolog "github.com/gofiber/contrib/v3/zerolog"
@@ -26,6 +27,9 @@ func Run(ctx *util.Context) error {
 	server.All("/", func(c fiber.Ctx) error {
 		return c.SendString("Hello, Wombat!")
 	})
+
+	apiGroup := server.Group("/api/v0")
+	misc.Route(apiGroup.Group("/misc"), misc.NewService())
 
 	var serverErr error
 	go func() {
