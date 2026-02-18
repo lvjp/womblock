@@ -14,7 +14,7 @@ services:
     volumes:
       - ./config.yaml:/etc/womblock/config.yaml:ro
   swagger:
-    image: swaggerapi/swagger-ui:v5.31.0@sha256:080804ac62c9d5d358662cc6f0db96ba0be76af7af393014a1a1305d967298cc
+    image: swaggerapi/swagger-ui:v5.31.1@sha256:89f927536a6cf0fe6b70448528c07979be714c6e3dccf2a006152af03a8716f5
     restart: always
     environment:
       - SWAGGER_JSON=/opt/swagger.yaml
