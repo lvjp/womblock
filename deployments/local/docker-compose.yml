@@ -1,0 +1,36 @@
+---
+name: wtf-go
+
+services:
+  backend:
+    build:
+      context: ../..
+      dockerfile: ./build/Dockerfile
+    restart: unless-stopped
+    ports:
+      - 8081:8080
+    healthcheck:
+      test: ["CMD", "wtf-go", "healthcheck"]
+    volumes:
+      - ./config.yaml:/etc/wtf-go/config.yaml:ro
+  swagger:
+    image: swaggerapi/swagger-ui:v5.31.1@sha256:89f927536a6cf0fe6b70448528c07979be714c6e3dccf2a006152af03a8716f5
+    restart: always
+    environment:
+      - SWAGGER_JSON=/opt/swagger.yaml
+      - VALIDATOR_URL=none
+    volumes:
+      - ../../api/openapi.yaml:/opt/swagger.yaml
+    ports:
+      - 8082:8080
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "curl",
+          "--head",
+          "--fail",
+          "--user-agent",
+          "local-healthcheck",
+          "http://localhost:8080",
+        ]
