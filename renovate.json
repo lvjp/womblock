@@ -1,0 +1,52 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:best-practices",
+    ":disableRateLimiting"
+  ],
+  "postUpdateOptions": [
+    "gomodTidy",
+    "gomodUpdateImportPaths"
+  ],
+  "dependencyDashboard": false,
+  "rebaseWhen": "behind-base-branch",
+  "timezone": "Europe/Paris",
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "GitHub Actions linting workflow",
+      "managerFilePatterns": [
+        "/^\\.github/workflows/linting\\.yml$/"
+      ],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>.+) depName=(?<depName>.+)\\s+\\w+: \\s?(?<currentValue>.+)"
+      ]
+    },
+    {
+      "customType": "regex",
+      "description": "mdBook version from GitHub Actions workflow",
+      "datasourceTemplate": "github-releases",
+      "depNameTemplate": "rust-lang/mdbook",
+      "managerFilePatterns": [
+        "/^\\.github/workflows/gh-pages\\.yml$/"
+      ],
+      "matchStrings": [
+        "MDBOOK_VERSION: (?<currentValue>.+) # renovate dependency"
+      ]
+    }
+  ],
+  "packageRules": [
+    {
+      "matchManagers": [
+        "gomod"
+      ],
+      "matchDepNames": [
+        "go"
+      ],
+      "matchDepTypes": [
+        "golang"
+      ],
+      "rangeStrategy": "bump"
+    }
+  ]
+}
