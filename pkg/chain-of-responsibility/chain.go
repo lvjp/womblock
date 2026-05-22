@@ -23,6 +23,7 @@ package chain
 
 import (
 	"context"
+	"slices"
 )
 
 type Handler[Value any] interface {
@@ -55,10 +56,10 @@ func (cl chainLink[Value]) Handle(ctx context.Context, value Value) error {
 }
 
 func NewChain[Value any](h Handler[Value], with ...Middleware[Value]) Handler[Value] {
-	for i := len(with) - 1; i >= 0; i-- {
+	for _, with := range slices.Backward(with) {
 		h = chainLink[Value]{
 			next: h,
-			with: with[i],
+			with: with,
 		}
 	}
 

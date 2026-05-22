@@ -26,6 +26,7 @@ linters:
     - ineffassign
     - misspell
     - mnd
+    - modernize
     - nestif
     - nilerr
     - nilnil
