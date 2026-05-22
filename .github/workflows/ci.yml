@@ -28,7 +28,7 @@ jobs:
       - run: go mod tidy -diff
 
       - name: Unit tests
-        run: go test -v -coverprofile=coverage-ut.txt ./...
+        run: go test -v -coverprofile=coverage-ut.txt -coverpkg github.com/lvjp/wtf-go/... ./...
 
       - name: Race detection
         run: go test -race -v ./...
@@ -55,7 +55,7 @@ jobs:
         working-directory: ./deployments/local
 
       - name: Run integration tests
-        run: go test -v -coverprofile=coverage-e2e.txt ./tests/e2e/...
+        run: go test -v -coverprofile=coverage-e2e.txt -coverpkg github.com/lvjp/wtf-go/... ./tests/e2e/...
         env:
           TEST_WTF_GO_BACKEND_ENDPOINT: http://localhost:8081
 
