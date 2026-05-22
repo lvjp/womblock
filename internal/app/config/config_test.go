@@ -81,20 +81,12 @@ func TestConfigBuilder_multipleConfig(t *testing.T) {
 func generateDefaultYaml(t *testing.T) (string, *Config) {
 	t.Helper()
 
-	path := filepath.Join(t.TempDir(), uuid.NewString()+".yaml")
+	config, path, err := New(WithDefaults())
+	require.NoError(t, err)
+	require.Empty(t, path)
+	require.NotNil(t, config)
 
-	// TODO: generate this instead of hardcoding it here. The dummy usage of testing/quick produces
-	// invalid yaml string with control charactect, so we need to find a way to generate valid yaml
-	// content.
-	config := Config{
-		Server: Server{
-			ListenAddress: "generated:server.listen_address",
-		},
-		Log: Log{
-			Level:  "generated:log.level",
-			Format: "generated:log.format",
-		},
-	}
+	path = filepath.Join(t.TempDir(), uuid.NewString()+".yaml")
 
 	raw, err := yaml.Marshal(config)
 	require.NoError(t, err)
@@ -102,5 +94,5 @@ func generateDefaultYaml(t *testing.T) (string, *Config) {
 	err = os.WriteFile(path, raw, 0600)
 	require.NoError(t, err)
 
-	return path, &config
+	return path, config
 }
