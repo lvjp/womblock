@@ -12,6 +12,7 @@ linters:
     - exhaustive
     - fatcontext
     - forcetypeassert
+    - funcorder
     - goconst
     - gocritic
     - gocyclo

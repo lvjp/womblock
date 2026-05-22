@@ -34,15 +34,6 @@ func init() {
 	buildInfo.Load(raw)
 }
 
-func (bi *BuildInfo) setDefaults() {
-	bi.Revision = "-"
-	bi.RevisionTime = "-"
-	bi.Modified = false
-	bi.GoVersion = "-"
-	bi.GoOS = "-"
-	bi.GoArch = "-"
-}
-
 func (bi *BuildInfo) Load(raw *debug.BuildInfo) {
 	bi.GoVersion = raw.GoVersion
 
@@ -77,6 +68,15 @@ func (bi BuildInfo) String() string {
 	}
 
 	return ret
+}
+
+func (bi *BuildInfo) setDefaults() {
+	bi.Revision = "-"
+	bi.RevisionTime = "-"
+	bi.Modified = false
+	bi.GoVersion = "-"
+	bi.GoOS = "-"
+	bi.GoArch = "-"
 }
 
 func Get() BuildInfo {
