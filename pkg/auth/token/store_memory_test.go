@@ -184,6 +184,8 @@ func syncMapCount(m *sync.Map) int {
 }
 
 func requireSyncMapEqual(t *testing.T, m *sync.Map, key string, expected StoredToken) {
+	t.Helper()
+
 	raw, exists := m.Load(key)
 	require.True(t, exists, "expected key %q to exist in sync.Map", key)
 	require.NotNil(t, raw, "expected value for key %q to be non-nil", key)

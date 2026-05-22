@@ -79,6 +79,8 @@ func TestConfigBuilder_multipleConfig(t *testing.T) {
 }
 
 func generateDefaultYaml(t *testing.T) (string, *Config) {
+	t.Helper()
+
 	path := filepath.Join(t.TempDir(), uuid.NewString()+".yaml")
 
 	// TODO: generate this instead of hardcoding it here. The dummy usage of testing/quick produces

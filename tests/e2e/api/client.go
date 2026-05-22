@@ -8,6 +8,8 @@ import (
 )
 
 func NewClient(t *testing.T, optsFn ...api.OptionsFn) *api.Client {
+	t.Helper()
+
 	var endpoint string
 	if endpoint = os.Getenv("TEST_WTF_GO_BACKEND_ENDPOINT"); endpoint == "" {
 		t.Skip("TEST_WTF_GO_BACKEND_ENDPOINT environment variable is not set, skipping test")
